@@ -1,6 +1,6 @@
 
 <?php
-
+session_start();
 $conn = oci_connect('yw0', 'DBdb1234', 'oracle.cise.ufl.edu:1521/orcl');
 
 if(isset($_POST['Submit'])){
@@ -16,21 +16,22 @@ if(isset($_POST['Submit'])){
         oci_bind_by_name($stid, ':userName', $userName);
         oci_bind_by_name($stid, ':passWord', $passWord);
         oci_execute($stid); 
+
+			
  
+
 	if(($row = oci_fetch_array($stid, OCI_ASSOC)) != null){
-		//login success
-		//$data = oci_fetch_array($stid, 1);
-		//$_SESSION['userName'] = $data['userName'];
-		$_SESSION['userName'] = $row['userName'];
-		sesssion_start();
+		$_SESSION['userName'] = $userName;
 		header("location:6_user_home.php");
 		
 		echo "Success!!!!!!";
-		}else{
+	} else {
 			//login failed
-			$error = "invalid Login";
-			}
+		$error = "invalid Login";
 	}
+}
+
+
 
 ?>
 

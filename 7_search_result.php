@@ -1,13 +1,93 @@
 <?php
-/*require("config.php");
+$conn = oci_connect('yw0', 'DBdb1234', 'oracle.cise.ufl.edu:1521/orcl');
+session_start();
 
-if(!isset($_SESSION['userID'])){
-	header("location:index.php");
+if(empty($_SESSION['searchsong']) 
+	|| empty($_SESSION['searchsinger']) 
+/*	|| empty($_SESSION['searchgenre']) 
+	|| empty($_SESSION['searchrate']) 
+	|| empty($_SESSION['searchdate']) 
+	|| empty($_SESSION['searchprice'])){*/){
+	echo $_SESSION['searchsong'], $_SESSION['searchsinger'], $_SESSION['searchgenre'], $_SESSION['searchrate'], 
+		 $_SESSION['searchdate'], $_SESSION['searchprice'];
+//	header("location:xxx.php");
 	exit();
-	}else{
-		$userData = getUserData($_SESSION['userID']);
-		}
-*/
+} else {
+	$searchsong111 = $_SESSION['searchsong'];
+	$searchsinger111 = $_SESSION['searchsinger'];
+	$searchgenre111 = $_SESSION['searchgenre'];
+	$searchrate111 = $_SESSION['searchrate'];
+	$searchdate111 = $_SESSION['searchdate'];
+	$searchprice111 = $_SESSION['searchprice'];
+
+	echo $_SESSION['searchsong'], $_SESSION['searchsinger'], $_SESSION['searchgenre'], $_SESSION['searchrate'], 
+		 $_SESSION['searchdate'], $_SESSION['searchprice'];
+
+	$s1 = "select * from Song s, Singer i, Genre g where s.singer_id = i.ID AND s.Genre_id = g.ID";
+	if (empty($_SESSION["searchsong"])) {
+		$s2 = "";
+	} else {
+	    $s2 = " AND s.title = :searchsong111";
+	}
+	   
+	if (empty($_SESSION["searchsinger"])) {
+	    $s3 = "";
+	} else {
+	    $s3 = " AND i.name = :searchsinger111";
+	}
+	   
+	if (empty($_SESSION["searchgenre"])) {
+	   $s4 = "";
+	} else {
+	   $s4 = " AND g.name = :searchgenre111";
+	}
+	echo 'this is: ', $_SESSION['searchgenre'], "<br>".PHP_EOL; 
+	   
+	if (empty($_SESSION["searchrate"])) {
+	   $s5 = "";
+	} else {
+	   $s5 = " AND s.avg_rate >= :searchrate111";
+	}
+	   
+	if (empty($_SESSION["searchdate"])) {
+	   $s6 = "";
+	} else {
+	   $s6 = " AND s.release_date >= :searchdate111";
+	}
+	   
+	if (empty($_SESSION["searchprice"])) {
+	   $s7 = "";
+	} else {
+	   $s7 = " AND s.price <= :searchprice111";
+	}
+
+	$s_total = $s1 . $s2 . $s3 . $s4 . $s5 . $s6 . $s7;
+	echo $s_total;
+
+	$sss = oci_parse($conn, $s_total);
+        
+	oci_bind_by_name($sss, ':searchsong111', $_SESSION['searchsong']);
+	oci_bind_by_name($sss, ':searchsinger111', $_SESSION['searchsinger']);
+	oci_bind_by_name($sss, ':searchgenre111', $_SESSION['searchgenre']);
+	oci_bind_by_name($sss, ':searchrate111', $_SESSION['searchrate']);
+	oci_bind_by_name($sss, ':searchdate111', $_SESSION['searchdate']);
+	oci_bind_by_name($sss, ':searchprice111', $_SESSION['searchprice']);
+        
+	oci_execute($sss); 
+        
+        echo "<table>\n";
+        while (($row = oci_fetch_array($sss, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
+            echo "<tr>\n";
+            foreach ($row as $item) {
+                echo "  <td>".($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;")."</td>\n";
+            }
+            echo "</tr>\n";
+        }
+        echo "</table>\n";
+
+}
+
+session_destroy();
 ?>
 
 <!doctype html>
