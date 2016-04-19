@@ -56,15 +56,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	 $_SESSION["searchprice"] = $_POST["searchprice"];
    }
 
-//   if(!empty($_SESSION['searchsong']) && !empty($_SESSION['searchsinger']) &&
-// 	!empty($_SESSION['searchgenre']) && !empty($_SESSION['searchrate']) && 
-//	!empty($_SESSION['searchdate']) && !empty($_SESSION['searchprice'])){
-
-    echo $_SESSION['searchsong'], $_SESSION['searchsinger'];
-	if (!empty($_SESSION['searchsong']) && !empty($_SESSION['searchsinger'])) {
-	   header("location:7_search_result.php");
-	   exit();
-	}    
+    if(empty($_SESSION['searchsong']) 
+       && empty($_SESSION['searchsinger']) 
+       && empty($_SESSION['searchgenre']) 
+       && empty($_SESSION['searchrate']) 
+       && empty($_SESSION['searchdate']) 
+       && empty($_SESSION['searchprice'])){
+           header("location:xxx.php");
+           exit();
+    } else {
+            header("location:7_search_result.php");
+            exit();
+    }
+              
   
 }
 

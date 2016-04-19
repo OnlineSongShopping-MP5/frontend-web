@@ -7,6 +7,8 @@
 <h1>Welcome to FiveSongsBlog!</h1>
 
 <p>Please <a href="2_sign_up.php">Sign Up</a> or <a href="3_log_in.php">Log In</a></p>
+<p>For Providers, please <a href="3_log_in_p.php">Log In</a></p>
+
 <body>
 </body>
 </html>

@@ -1,13 +1,59 @@
 <?php
-/*require("config.php");
+/**/
 
-if(!isset($_SESSION['userID'])){
-	header("location:index.php");
-	exit();
-	}else{
-		$userData = getUserData($_SESSION['userID']);
-		}
-*/
+$conn = oci_connect('yw0', 'DBdb1234', 'oracle.cise.ufl.edu:1521/orcl');
+if ($conn == null) {
+	echo 'connect failed';
+}
+
+if(isset($_POST['Submit'])){
+    
+    
+	$song_id = $_POST['song_id'];
+	$song_name = $_POST['song_name'];	
+	$avg_rate = '0.0';	
+	$release_date = $_POST['release_date'];
+	$duration = $_POST['duration'];		
+	$price = $_POST['price'];	
+	$provider_name = $_POST['provider_name'];	
+	$genre_id = $_POST['genre_id'];	
+	$singer_id = $_POST['singer_id'];	
+        $download = 0;
+        
+        
+        if (!$song_id || !$song_name || !$avg_rate || !$release_date || !$duration || !$price || 
+              !$provider_name || !$genre_id || !$singer_id) {
+		header("location:5_provider_home.php");
+                echo "Please provide complete information";
+		return;
+	}
+
+	$stid = oci_parse($conn, 'Insert into song values (:id, :title, :avg_rate, :release_date, :duration, :price, :provider_name, :genre_id, :singer_id, :download)');
+
+	oci_bind_by_name($stid, ':id', $song_id);
+	oci_bind_by_name($stid, ':title', $song_name);
+	oci_bind_by_name($stid, ':avg_rate', $avg_rate);
+	oci_bind_by_name($stid, ':release_date', $release_date);
+	oci_bind_by_name($stid, ':duration', $duration);
+	oci_bind_by_name($stid, ':price', $price);
+	oci_bind_by_name($stid, ':provider_name', $provider_name);
+	oci_bind_by_name($stid, ':genre_id', $genre_id);
+ 	oci_bind_by_name($stid, ':singer_id', $singer_id);
+	oci_bind_by_name($stid, ':download', $download);
+               
+        oci_execute($stid);
+
+	$commit = oci_commit($conn);
+	if (!$commit) {
+		echo 'commit null';
+	} else {
+		echo 'commit success';
+	}
+
+	//header("location:5_provider_home.php");
+        echo "Upload Succeeded";
+}
+
 ?>
 
 <!doctype html>
@@ -50,7 +96,7 @@ img {
   
   </div>
   
-  <div id = "navRight"><h1>Welcome Provider - <?php /*echo $userData['name']; */?> to Dashboard</h1>
+  <div id = "navRight"><h1>Welcome Provider - <?php echo $_SESSION['userName'] ?> to Dashboard</h1>
   </div>
   <br class = "clearFix">
 
@@ -75,6 +121,51 @@ img {
   </tbody>
 </table>
 <br><br>
+
+<form action = "" method = "post">
+<table width="100%" border="0" cellpadding="3" cellspacing="1" class="table">
+    <tr>
+      <td width="36%" align="right">song_id:</td>
+      <td width="64%"><input name = "song_id" type="text"></td>
+    </tr>
+    <tr>
+      <td width="36%" align="right">song_name:</td>
+      <td width="64%"><input name = "song_name" type="text"></td>
+    </tr>
+    <tr>
+      <td width="36%" align="right">release_date:</td>
+      <td width="64%"><input name = "release_date" type="text"></td>
+    </tr>
+    <tr>
+      <td width="36%" align="right">duration:</td>
+      <td width="64%"><input name = "duration" type="text"></td>
+    </tr>
+    <tr>
+      <td width="36%" align="right">price:</td>
+      <td width="64%"><input name = "price" type="text"></td>
+    </tr>
+    <tr>
+      <td width="36%" align="right">provider_name:</td>
+      <td width="64%"><input name = "provider_name" type="text"></td>
+    </tr>
+    <tr>
+      <td width="36%" align="right">genre_id:</td>
+      <td width="64%"><input name = "genre_id" type="text"></td>
+    </tr>
+    <tr>
+      <td width="36%" align="right">singer_id:</td>
+      <td width="64%"><input name = "singer_id" type="text"></td>
+    </tr>
+    
+    <tr>
+      <td>&nbsp;</td>
+      <td><input type="submit" name="Submit" id="Submit" value="Submit"></td>
+    </tr>
+</table>
+</form>
+    
+
+
 <h2>Please select the functionality from below:</h2>
 
 <form>

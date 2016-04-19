@@ -11,6 +11,22 @@
 <h2 align="center"> Song Name (PHP code here) ---- <a href="10_cart.php">Add To Cart!</a> </h2>
 
 <img src="samplecover.jpg" width="560" height="auto" alt=""/>
+<?php
+$conn = oci_connect('yw0', 'DBdb1234', 'oracle.cise.ufl.edu:1521/orcl');
+session_start();
+
+if(isset($_POST['check'])){
+
+//    $check = $_POST['check'];
+    echo "cart_button set";
+
+}
+
+echo "this is: " . $_POST['check'];
+
+?>
+
+
 
 <table width="500" border="1">
   <tbody>
