@@ -1,17 +1,20 @@
 <?php
 //$nameErr = "";
 
-$conn = oci_connect('yw0', 'DBdb1234', 'oracle.cise.ufl.edu:1521/orcl');
-
+$conn = oci_connect('zjia', '1A2b3c4d!!', 'oracle.cise.ufl.edu:1521/orcl');
 session_start();
 
-if(!isset($_SESSION['userName'])){
+
+$userName = $_SESSION['userName'];
+
+session_unset();
+
+$_SESSION['userName'] = $userName;
+
+if(!$userName){
 	header("location:3_log_in.php");
 	exit();
-	}else{
-	$userData = $_SESSION['userName'];
-	
-	}
+}
 	
 	/*
 	$searchsong = $_POST['searchsong'];
@@ -66,7 +69,7 @@ img {
 <div id = "mainFrame">
 	<div id = "navLeft">
 	<ul id="menu">
-		<li><a href = "23_logout.php">Logout</a></li>
+            <li><a href = "23_logout.php">Logout</a></li>
 	</ul>
 	</div>
 
@@ -90,6 +93,18 @@ img {
 
 
 <p align="center"> <a href="xxx.php">Search Songs</a> </p>
+
+<p align="center"> <a href="9.1_top_ten_songs.php">Top Ten Songs</a> </p><br>
+<p align="center"> <a href="9.2_top_ten_singers.php">Top Ten Singers</a> </p><br>
+<p align="center"> <a href="9.3_recommend_songs_genre.php">Recommend songs based on the genres</a> </p><br>
+<p align="center"> <a href="9.4_recommend_songs_singer.php">Recommend songs based on the singers</a> </p><br>
+<p align="center"> <a href="9.5_recommend_songs_people_also_bought.php">People bought these songs also bought</a> </p><br>
+<p align="center"> <a href="9.6_recommend_songs_age_group.php">Most popular song of specific age group</a> </p><br>
+<p align="center"> <a href="top_ten_rating_songs.php">Top Ten Rating Songs</a> </p><br>
+
+
+
+<!--
 
 <h2 >Please see our picks for you!</h2>
 
@@ -116,4 +131,4 @@ img {
 </body>
 </html>
 
-
+-->

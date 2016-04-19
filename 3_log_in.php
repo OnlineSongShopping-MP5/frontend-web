@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-$conn = oci_connect('yw0', 'DBdb1234', 'oracle.cise.ufl.edu:1521/orcl');
+$conn = oci_connect('zjia', '1A2b3c4d!!', 'oracle.cise.ufl.edu:1521/orcl');
 
 if(isset($_POST['Submit'])){
 	

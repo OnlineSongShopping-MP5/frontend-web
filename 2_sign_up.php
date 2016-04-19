@@ -2,7 +2,7 @@
 <?php
 /*require("666_config.php");*/
 
-$conn = oci_connect('yw0', 'DBdb1234', 'oracle.cise.ufl.edu:1521/orcl');
+$conn = oci_connect('zjia', '1A2b3c4d!!', 'oracle.cise.ufl.edu:1521/orcl');
 if ($conn == null) {
 	echo 'connect failed';
 }
@@ -19,7 +19,7 @@ if(isset($_POST['Submit'])){
 	$lname = $_POST['lname'];	
 	$gender = $_POST['gender'];	
 	$age = $_POST['age'];
-	if (!$fname || !$lname) {
+	if (!$fname || !$lname || !$userName || !$passWord) {
 		header("location:2_sign_up.php");
 		return;
 	}
@@ -57,6 +57,8 @@ if(isset($_POST['Submit'])){
         //$s = oci_parse($conn, "commit");
         oci_execute($si);
 	//oci_execute($s);
+       
+        
 	$commit = oci_commit($conn);
 	if (!$commit) {
 		echo 'commit null';

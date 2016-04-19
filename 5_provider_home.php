@@ -1,7 +1,8 @@
 <?php
 /**/
 
-$conn = oci_connect('yw0', 'DBdb1234', 'oracle.cise.ufl.edu:1521/orcl');
+$conn = oci_connect('zjia', '1A2b3c4d!!', 'oracle.cise.ufl.edu:1521/orcl');
+session_start();
 if ($conn == null) {
 	echo 'connect failed';
 }
@@ -168,14 +169,12 @@ img {
 
 <h2>Please select the functionality from below:</h2>
 
-<form>
-  <input type="radio" name="Info" value="Account Management" checked> Account Management<br>
-  <input type="radio" name="Info" value="Profile Management"> Profile Management<br>
-  <input type="radio" name="Info" value="Upload New Albums"> Upload New Albums<br>
-  <input type="radio" name="Info" value="Upload New Songs"> Upload New Songs<br>
-  <input type="radio" name="Info" value="Order Management"> Order Management<br>
-</form>
+<p>Report 1. <a href="5_provider_best_selling.php">Best selling songs from our company: </a></p><br>
  
+<p>Report 2. <a href="5_provider_worst_selling.php">Worst selling songs from our company: </a></p><br>
+<p>Report 3. <a href="5_provider_genre.php">Selling records from different genres: </a></p><br>
+<p>Report 4. <a href="5_provider_gender.php">Selling records from different genders: </a></p><br>
+<p>Report 5. <a href="5_provider_time_range.php">Selling records for specific time range: </a></p><br>
 
 </body>
 </html>

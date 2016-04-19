@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-$conn = oci_connect('yw0', 'DBdb1234', 'oracle.cise.ufl.edu:1521/orcl');
+$conn = oci_connect('zjia', '1A2b3c4d!!', 'oracle.cise.ufl.edu:1521/orcl');
 
 if(isset($_POST['Submit'])){
 	
@@ -23,7 +23,6 @@ if(isset($_POST['Submit'])){
 	if(($row = oci_fetch_array($stid, OCI_ASSOC)) != null){
 		$_SESSION['userName'] = $userName;
 		header("location:5_provider_home.php");
-		
 		echo "Success!!!!!!";
 	} else {
 			//login failed

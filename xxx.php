@@ -13,7 +13,17 @@ $searchsong = $searchsinger = $searchgenre = $searchrate = $searchdate = $search
 
 session_start();
 
+        
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    
+if(isset($_POST['clear'])){
+	$_SESSION['searchsong'] = $_SESSION['searchsinger'] = $_SESSION['searchgenre'] =
+        $_SESSION['searchrate'] =  $_SESSION['searchdate'] = $_SESSION['searchprice'] = null;
+        header("location:xxx.php");
+	exit();
+	}
+    
    if (empty($_POST["searchsong"])) {
      $nameErr = "Song name is required";
    } else {
@@ -55,7 +65,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      $searchprice = test_input($_POST["searchprice"]);
 	 $_SESSION["searchprice"] = $_POST["searchprice"];
    }
-
     if(empty($_SESSION['searchsong']) 
        && empty($_SESSION['searchsinger']) 
        && empty($_SESSION['searchgenre']) 
@@ -72,6 +81,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
 }
 
+
+
 function test_input($data) {
    $data = trim($data);
    $data = stripslashes($data);
@@ -85,34 +96,36 @@ echo $searchsong;
 
 <h2>Search Song</h2>
 <p>
-	<span class="error">* Required
+	<span class="error">
 	<br>
-	If there is some part unsure, please input "*".	
+	Please input at least one item.	
 	</span>
 </p>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
+    <input type="submit" name="clear" value="clear"> <br>
+   
    Song name:<input type="text" name="searchsong">
-   <span class="error">* <?php echo $nameErr;?></span>
+<!--   <span class="error">* <?php echo $nameErr;?></span>-->
    <br><br>
    
    Singer:   <input type="text" name="searchsinger">
-   <span class="error">* <?php echo $singerErr;?></span>
+<!--   <span class="error">* <?php echo $singerErr;?></span>-->
    <br><br>
    
    Genre:    <input type="text" name="searchgenre">
-   <span class="error">* <?php echo $genreErr;?></span>
+<!--   <span class="error">* <?php echo $genreErr;?></span>-->
    <br><br>
    
    Rate:     <input type="text" name="searchrate">
-   <span class="error">* <?php echo $rateErr;?></span>
+   <!--<span class="error">* <?php echo $rateErr;?></span>-->
    <br><br>
    
    Date:     <input type="text" name="searchdate">
-   <span class="error">* <?php echo $dateErr;?></span>
+   <!--<span class="error">* <?php echo $dateErr;?></span>-->
    <br><br>
    
    Price:    <input type="text" name="searchprice">
-   <span class="error">* <?php echo $priceErr;?></span>
+   <!--<span class="error">* <?php echo $priceErr;?></span>-->
    <br><br>
    
    <input type="submit" name="submit" value="submit"> 

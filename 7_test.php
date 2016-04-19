@@ -63,16 +63,16 @@ if (empty($_SESSION["searchprice"])) {
 
 $s_total = $s1 . $s2 . $s3 . $s4 . $s5 . $s6 . $s7;
 
-$sss = oci_parse($conn, $s_total);
+$s_select_all = oci_parse($conn, $s_total);
 
-oci_bind_by_name($sss, ':searchsong111', $_SESSION['searchsong']);
-oci_bind_by_name($sss, ':searchsinger111', $_SESSION['searchsinger']);
-oci_bind_by_name($sss, ':searchgenre111', $_SESSION['searchgenre']);
-oci_bind_by_name($sss, ':searchrate111', $_SESSION['searchrate']);
-oci_bind_by_name($sss, ':searchdate111', $_SESSION['searchdate']);
-oci_bind_by_name($sss, ':searchprice111', $_SESSION['searchprice']);
+oci_bind_by_name($s_select_all, ':searchsong111', $_SESSION['searchsong']);
+oci_bind_by_name($s_select_all, ':searchsinger111', $_SESSION['searchsinger']);
+oci_bind_by_name($s_select_all, ':searchgenre111', $_SESSION['searchgenre']);
+oci_bind_by_name($s_select_all, ':searchrate111', $_SESSION['searchrate']);
+oci_bind_by_name($s_select_all, ':searchdate111', $_SESSION['searchdate']);
+oci_bind_by_name($s_select_all, ':searchprice111', $_SESSION['searchprice']);
 
-oci_execute($sss); 
+oci_execute($s_select_all); 
 ?>
 
 <!doctype html>
@@ -156,7 +156,7 @@ echo "<table width='500' border='4'>
 <td>Order</td>
 </tr>";
 
-while ($row = oci_fetch_array($sss, OCI_BOTH)) {
+while ($row = oci_fetch_array($s_select_all, OCI_BOTH)) {
 // Use the uppercase column names for the associative array indices
 
     echo "<tr>";
